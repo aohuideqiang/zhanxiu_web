@@ -16,17 +16,15 @@ import com.example.demo.entity.Footer;
 import com.example.demo.service.FooterService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/footer")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class FooterController {
 
     private final FooterService footerService;
-
-    public FooterController(FooterService footerService) {
-        this.footerService = footerService;
-    }
 
     // 查询（获取唯一一条）
     @GetMapping

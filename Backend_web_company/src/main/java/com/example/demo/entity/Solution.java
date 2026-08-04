@@ -8,7 +8,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @TableName("solution")
 public class Solution {
 
@@ -36,27 +40,4 @@ public class Solution {
     @TableField("image")
     @Size(max = 500, message = "图片链接长度不能超过500个字符")
     private String imageUrl;       // 图片（base64 或 URL）
-
-    public Solution() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getSolutionKey() { return solutionKey; }
-    public void setSolutionKey(String solutionKey) { this.solutionKey = solutionKey; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public String getTags() { return tags; }
-    public void setTags(String tags) { this.tags = tags; }
-
-    public String getIconUrl() { return iconUrl; }
-    public void setIconUrl(String iconUrl) { this.iconUrl = iconUrl; }
-
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

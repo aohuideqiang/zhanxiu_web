@@ -15,17 +15,15 @@ import com.example.demo.entity.News;
 import com.example.demo.service.NewsService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/news")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class NewsController {
 
     private final NewsService newsService;
-
-    public NewsController(NewsService newsService) {
-        this.newsService = newsService;
-    }
 
     @GetMapping
     public SaResult getAllNews() {

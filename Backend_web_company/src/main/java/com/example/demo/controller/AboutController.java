@@ -15,17 +15,15 @@ import com.example.demo.entity.About;
 import com.example.demo.service.AboutService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/abouts")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class AboutController {
 
     private final AboutService aboutService;
-
-    public AboutController(AboutService aboutService) {
-        this.aboutService = aboutService;
-    }
 
     @GetMapping
     public SaResult getAllAbouts() {

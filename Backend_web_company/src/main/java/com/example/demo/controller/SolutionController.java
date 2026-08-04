@@ -15,17 +15,15 @@ import com.example.demo.entity.Solution;
 import com.example.demo.service.SolutionService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/solutions")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class SolutionController {
 
     private final SolutionService solutionService;
-
-    public SolutionController(SolutionService solutionService) {
-        this.solutionService = solutionService;
-    }
 
     @GetMapping
     public SaResult getAllSolutions() {

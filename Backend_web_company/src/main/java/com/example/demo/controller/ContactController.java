@@ -15,17 +15,15 @@ import com.example.demo.entity.Contact;
 import com.example.demo.service.ContactService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/contacts")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ContactController {
 
     private final ContactService contactService;
-
-    public ContactController(ContactService contactService) {
-        this.contactService = contactService;
-    }
 
     @GetMapping
     public SaResult getAllContacts() {

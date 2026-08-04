@@ -15,17 +15,15 @@ import com.example.demo.entity.ServiceCard;
 import com.example.demo.service.ServiceCardService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/cards")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ServiceCardController {
 
     private final ServiceCardService serviceCardService;
-
-    public ServiceCardController(ServiceCardService serviceCardService) {
-        this.serviceCardService = serviceCardService;
-    }
 
     @GetMapping
     public SaResult getAllCards() {

@@ -15,17 +15,15 @@ import com.example.demo.entity.Banner;
 import com.example.demo.service.BannerService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/banners")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class BannerController {
 
     private final BannerService bannerService;
-
-    public BannerController(BannerService bannerService) {
-        this.bannerService = bannerService;
-    }
 
     @GetMapping
     public SaResult getAllBanners() {

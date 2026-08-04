@@ -15,17 +15,15 @@ import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public SaResult getAllProducts() {
