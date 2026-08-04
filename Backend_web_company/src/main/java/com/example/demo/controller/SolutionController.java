@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
+import cn.dev33.satoken.util.SaResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Solution;
 import com.example.demo.service.SolutionService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/solutions")
 @CrossOrigin(origins = "*")
@@ -27,28 +28,29 @@ public class SolutionController {
     }
 
     @GetMapping
-    public List<Solution> getAllSolutions() {
-        return solutionService.list();
+    public SaResult getAllSolutions() {
+        return SaResult.data(solutionService.list());
     }
 
     @GetMapping("/{id}")
-    public Solution getSolutionById(@PathVariable Long id) {
-        return solutionService.getById(id);
+    public SaResult getSolutionById(@PathVariable Long id) {
+        Solution solution = solutionService.getById(id);
+        return solution == null ? SaResult.error("解决方案不存在").setCode(404) : SaResult.data(solution);
     }
 
     @PostMapping
-    public boolean createSolution(@RequestBody Solution solution) {
-        return solutionService.save(solution);
+    public SaResult createSolution(@Valid @RequestBody Solution solution) {
+        return solutionService.save(solution) ? SaResult.ok("创建解决方案成功") : SaResult.error("创建解决方案失败");
     }
 
     @PutMapping("/{id}")
-    public boolean updateSolution(@PathVariable Long id, @RequestBody Solution solution) {
+    public SaResult updateSolution(@PathVariable Long id, @Valid @RequestBody Solution solution) {
         solution.setId(id);
-        return solutionService.saveOrUpdate(solution);
+        return solutionService.saveOrUpdate(solution) ? SaResult.ok("更新解决方案成功") : SaResult.error("更新解决方案失败");
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteSolution(@PathVariable Long id) {
-        return solutionService.removeById(id);
+    public SaResult deleteSolution(@PathVariable Long id) {
+        return solutionService.removeById(id) ? SaResult.ok("删除解决方案成功") : SaResult.error("解决方案不存在或已删除").setCode(404);
     }
 }

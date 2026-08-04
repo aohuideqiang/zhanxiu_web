@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import cn.dev33.satoken.util.SaResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.entity.Footer;
 import com.example.demo.service.FooterService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/footer")
 @CrossOrigin(origins = "*")
@@ -27,7 +30,7 @@ public class FooterController {
 
     // 查询（获取唯一一条）
     @GetMapping
-    public Footer getFooter() {
+    public SaResult getFooter() {
         Footer footer = footerService.getOne(
             new QueryWrapper<Footer>().last("LIMIT 1")
         );
@@ -43,25 +46,25 @@ public class FooterController {
             footer.setNavGroups("[{\"title\":\"产品服务\",\"links\":[\"数据采集\",\"数据标注\",\"质量质检\",\"平台部署\"]},{\"title\":\"解决方案\",\"links\":[\"智能驾驶\",\"智能家居\",\"智能安防\",\"智能金融\",\"新零售\"]},{\"title\":\"资源与生态\",\"links\":[\"开发文档\",\"技术博客\",\"合作伙伴\"]},{\"title\":\"关于我们\",\"links\":[\"公司简介\",\"加入我们\",\"媒体报道\",\"商务合作\"]}]");
             footerService.save(footer);
         }
-        return footer;
+        return SaResult.data(footer);
     }
 
     // 新增
     @PostMapping
-    public boolean createFooter(@RequestBody Footer footer) {
-        return footerService.save(footer);
+    public SaResult createFooter(@Valid @RequestBody Footer footer) {
+        return footerService.save(footer) ? SaResult.ok("创建页脚信息成功") : SaResult.error("创建页脚信息失败");
     }
 
     // 更新
     @PutMapping("/{id}")
-    public boolean updateFooter(@PathVariable Long id, @RequestBody Footer footer) {
+    public SaResult updateFooter(@PathVariable Long id, @Valid @RequestBody Footer footer) {
         footer.setId(id);
-        return footerService.saveOrUpdate(footer);
+        return footerService.saveOrUpdate(footer) ? SaResult.ok("更新页脚信息成功") : SaResult.error("更新页脚信息失败");
     }
 
     // 删除
     @DeleteMapping("/{id}")
-    public boolean deleteFooter(@PathVariable Long id) {
-        return footerService.removeById(id);
+    public SaResult deleteFooter(@PathVariable Long id) {
+        return footerService.removeById(id) ? SaResult.ok("删除页脚信息成功") : SaResult.error("页脚信息不存在或已删除").setCode(404);
     }
 }
