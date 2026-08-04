@@ -1,0 +1,23 @@
+@import '../assets/base.css';
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f7f9fc;
+  width: 100%;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}

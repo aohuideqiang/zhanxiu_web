@@ -1,0 +1,66 @@
+:root {
+  --bg-deep: #050d12;
+  --bg-panel: #0a1620;
+  --brand: #0b89ff;
+  --brand-hot: #ff4747;
+  --ink: #e8eef5;
+  --ink-dim: #8a97a6;
+  --line: rgba(255, 255, 255, 0.08);
+  --display: 'Sora', 'PingFang SC', system-ui, sans-serif;
+  --body: 'Inter', 'PingFang SC', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--body);
+  background: var(--bg-deep);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* 滚动揭示：配合 IntersectionObserver 使用 */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* 环境光背景：分层、缓慢漂移，营造"活"的科技感 */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 15% 10%, rgba(11, 137, 255, 0.18), transparent 60%),
+    radial-gradient(50% 40% at 90% 30%, rgba(11, 137, 255, 0.1), transparent 60%), var(--bg-deep);
+}
+.ambient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(80% 60% at 50% 0%, #000, transparent 75%);
+  animation: drift 40s linear infinite;
+}
+@keyframes drift {
+  to {
+    background-position: 64px 64px;
+  }
+}
